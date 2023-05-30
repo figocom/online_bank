@@ -20,6 +20,7 @@ springdoc:
   api-docs:
     enabled: true
     path: /api-docs
+
   swagger-ui:
     enabled: true
     path: /ui
