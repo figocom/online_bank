@@ -5,17 +5,22 @@ import figo.devops.bogate.enums.ClientCreationEnum;
 import figo.devops.bogate.enums.CustomerTypeEnum;
 import figo.devops.bogate.enums.ResidentTypeEnum;
 import figo.devops.bogate.enums.StyleEnum;
+import figo.devops.bogate.util.TableKey;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Getter
 @Setter
 @ToString
 @Entity
 @NoArgsConstructor
+@Where(clause = "deleted=false")
+@SQLDelete(sql = ("update " + TableKey.Customer + " set deleted=true where id=?"))
 public class Customer extends AbsIntEntity {
     @Column(nullable = false , length = 16)
     private Integer customerId;

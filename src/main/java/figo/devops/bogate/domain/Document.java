@@ -2,18 +2,23 @@ package figo.devops.bogate.domain;
 
 import figo.devops.bogate.domain.template.AbsIntEntity;
 import figo.devops.bogate.enums.DocumentTypeEnum;
+import figo.devops.bogate.util.TableKey;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Getter
 @Setter
 @ToString
 @Entity
 @NoArgsConstructor
+@Where(clause = "deleted=false")
+@SQLDelete(sql = ("update " + TableKey.Document + " set deleted=true where id=?"))
 public class Document extends AbsIntEntity {
     @Column(nullable = false, length = 5)
     private String documentType;
